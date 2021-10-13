@@ -1,5 +1,5 @@
-import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
+import 'package:group_check/my_radio_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +29,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _State extends State<MyHomePage> {
+  final List<MyCardModel> _cardModel = [
+    MyCardModel(dispValue: '単勝'),
+    MyCardModel(dispValue: '複勝'),
+    MyCardModel(dispValue: '枠連'),
+    MyCardModel(dispValue: '馬連'),
+    MyCardModel(dispValue: '馬単'),
+    MyCardModel(dispValue: '3連複'),
+    MyCardModel(dispValue: '3連単'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,36 +46,17 @@ class _State extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            CustomRadioButton(
-              buttonLables: const [
-                '単勝',
-                '複勝',
-                '応援馬券',
-                '枠連',
-                '馬連',
-                '馬単',
-                'ワイド',
-                '3連複',
-                '3連単',
-                'WIN5',
-              ],
-              buttonValues: const [
-                '単勝',
-                '複勝',
-                '応援馬券',
-                '枠連',
-                '馬連',
-                '馬単',
-                'ワイド',
-                '3連複',
-                '3連単',
-                'WIN5',
-              ],
-              radioButtonValue: (value) {
-                debugPrint("${value ?? ''}");
-              },
-              unSelectedColor: Colors.white,
-              selectedColor: Colors.blue,
+            Row(
+              children: _cardModel
+                  .map((e) => MyCard(
+                        cardModel: e,
+                        onTap: () {
+                          setState(() {
+                            e.selected = !e.selected;
+                          });
+                        },
+                      ))
+                  .toList(),
             )
           ],
         ),
