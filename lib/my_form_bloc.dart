@@ -45,7 +45,9 @@ class MyFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  void onSubmitting() async {}
+  void onSubmitting() async {
+    // XXX: ここで押下時の処理を記載
+  }
 }
 
 class BakenTypeModel {

@@ -27,24 +27,28 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: BlocProvider(
-        create: (_) => MyFormBloc(),
-        child: Builder(
-          builder: (context) {
-            final formBloc = context.read<MyFormBloc>();
+    return BlocProvider(
+      create: (_) => MyFormBloc(),
+      child: Builder(
+        builder: (context) {
+          final formBloc = context.read<MyFormBloc>();
 
-            return Center(
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
               child: Column(
                 children: [
                   BakenFormField(fieldBloc: formBloc.bakenType),
                   PredictionListFormField(fieldBloc: formBloc.predictions),
                 ],
               ),
-            );
-          },
-        ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.send),
+              onPressed: () => formBloc.submit(),
+            ),
+          );
+        },
       ),
     );
   }
