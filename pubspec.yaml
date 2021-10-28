@@ -14,6 +14,9 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  form_bloc: ^0.20.6
+  flutter_form_bloc: ^0.20.6
+
   # Button
   custom_radio_grouped_button: ^2.1.1
 

@@ -1,45 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyRadioButton extends StatefulWidget {
-  final List<MyCardModel> _models;
-
-  const MyRadioButton({Key? key, required List<MyCardModel> models})
-      : _models = models,
-        super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _State();
-}
-
-class _State extends State<MyRadioButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: widget._models
-          .map((e) => MyCard(
-                cardModel: e,
-                onTap: () {
-                  setState(() {
-                    // TODO 他の選択肢をクリアしないとダメかな？ラジオにするなら
-                    e.selected = !e.selected;
-                  });
-                },
-              ))
-          .toList(),
-    );
-  }
-}
-
-class MyCard extends StatelessWidget {
-  final MyCardModel _model;
+class MyRadioButton extends StatelessWidget {
+  final String _value;
+  final bool isSelected;
   final void Function()? _onTap;
 
-  const MyCard({
+  const MyRadioButton({
     Key? key,
-    required MyCardModel cardModel,
+    required String value,
+    this.isSelected = false,
     void Function()? onTap,
-  })  : _model = cardModel,
+  })  : _value = value,
         _onTap = onTap,
         super(key: key);
 
@@ -55,7 +27,7 @@ class MyCard extends StatelessWidget {
             color: Colors.blue,
             width: 1,
           )),
-      color: _model.selected == true ? Colors.blue : Colors.white,
+      color: isSelected ? Colors.blue : Colors.white,
       child: InkWell(
         onTap: () {
           if (_onTap != null) {
@@ -65,22 +37,10 @@ class MyCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Center(
-            child: Text(_model.dispValue),
+            child: Text(_value),
           ),
         ),
       ),
     ));
   }
-}
-
-class MyCardModel {
-  bool selected;
-  String dispValue;
-  double flex;
-
-  MyCardModel({
-    required this.dispValue,
-    this.selected = false,
-    this.flex = 1,
-  });
 }
